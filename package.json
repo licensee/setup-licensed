@@ -1,7 +1,7 @@
 {
   "name": "setup-licensed",
   "version": "1.3.1",
-  "description": "Setup github/licensed for use in GitHub Actions workflows.",
+  "description": "Setup licensee/licensed for use in GitHub Actions workflows.",
   "main": "lib/index.js",
   "scripts": {
     "lint": "eslint lib",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/github/setup-licensed.git"
+    "url": "git+https://github.com/licensee/setup-licensed.git"
   },
   "keywords": [
     "GitHub",
@@ -20,9 +20,9 @@
   "author": "Jon Ruskin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/github/setup-licensed/issues"
+    "url": "https://github.com/licensee/setup-licensed/issues"
   },
-  "homepage": "https://github.com/github/setup-licensed#readme",
+  "homepage": "https://github.com/licensee/setup-licensed#readme",
   "engines": {
     "node": ">=20.0.0 <21.0.0"
   },

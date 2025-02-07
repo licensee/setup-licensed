@@ -99,7 +99,7 @@ describe('install', () => {
     await expect(installer.install(version)).resolves.toEqual(null);
     expect(exec.exec.callCount).toEqual(0);
     expect(core.info.callCount).toEqual(1);
-    expect(core.info.getCall(0).args).toEqual([`github/licensed (${version}) gem was not found`]);
+    expect(core.info.getCall(0).args).toEqual([`licensee/licensed (${version}) gem was not found`]);
   });
 
   it('returns null when a gem installation fails', async() => {
