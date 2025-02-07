@@ -1,6 +1,6 @@
 # setup-licensed
 
-A GitHub Action to set up [github/licensed](https://github.com/github/licensed) for use in action workflows, at the specified `version` input and target platform.  The action will fail if licensed isn't available for the specified version and target platform.
+A GitHub Action to set up [licensee/licensed](https://github.com/licensee/licensed) for use in action workflows, at the specified `version` input and target platform.  The action will fail if licensed isn't available for the specified version and target platform.
 
 ## Installing licensed as a Ruby gem
 
@@ -28,12 +28,12 @@ steps:
 - uses: actions/setup-node@v3
 - run: npm install # install dependencies in local environment
 
-# setup ruby environment before running github/setup-licensed
+# setup ruby environment before running licensee/setup-licensed
 - uses: ruby/setup-ruby@v1
   with:
     ruby-version: ruby
 
-- uses: github/setup-licensed@v1
+- uses: licensee/setup-licensed@v1
   with:
     version: '4.x' # required: supports matching based on string equivalence or node-semver range
     install-dir: /path/to/install/at # optional: defaults to /usr/local/bin
@@ -42,7 +42,7 @@ steps:
 - run: licensed list
 ```
 
-For an end-to-end solution to cache and check dependency metadata using GitHub Actions, see [licensed-ci.yaml](.github/workflows/licensed-ci.yaml)
+For an end-to-end solution to cache and check dependency metadata using GitHub Actions, see [licensed-ci.yaml](.licensee/workflows/licensed-ci.yaml)
 
 ## License
 
@@ -59,7 +59,7 @@ You can expect the following support.  See [SUPPORT](SUPPORT.md) for more inform
 
 - bug fixes
 - review of feature request issues
-- review of questions in [github/licensed Discussions](https://github.com/github/licensed/discussions)
+- review of questions in [licensee/licensed Discussions](https://github.com/licensee/licensed/discussions)
 
 ## Contributions
 

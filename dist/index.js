@@ -22,7 +22,7 @@ const octokitThrottleOptions = {
     if (retryCount >= MAX_RETRY_COUNT) {
       core.error(`Request was not successful after ${MAX_RETRY_COUNT} attempts.  Failing`);
       return false;
-    } 
+    }
 
     core.info(`Request attempt ${retryCount + 1} was rate limited, retrying after ${retryAfter} seconds`);
     return true;
@@ -31,7 +31,7 @@ const octokitThrottleOptions = {
     if (retryCount >= MAX_RETRY_COUNT) {
       core.error(`Request was not successful after ${MAX_RETRY_COUNT} attempts.  Failing`);
       return false;
-    } 
+    }
 
     core.info(`Request attempt ${retryCount + 1} hit secondary rate limits, retrying after ${retryAfter} seconds`);
     return true;
@@ -40,7 +40,7 @@ const octokitThrottleOptions = {
 
 async function getReleases(github) {
   const data = await github.paginate(github.rest.repos.listReleases, {
-    owner: 'github',
+    owner: 'licensee',
     repo: 'licensed'
   });
 
@@ -71,7 +71,7 @@ async function downloadLicensedArchive(github, asset) {
     headers: {
        Accept: "application/octet-stream"
     },
-    owner: 'github',
+    owner: 'licensee',
     repo: 'licensed',
     asset_id: asset.id
   });
@@ -121,20 +121,20 @@ async function install(version) {
   const releases = await module.exports.getReleases(authenticatedGithub);
   const releaseForVersion = await module.exports.findReleaseForVersion(releases, version);
   if (!releaseForVersion) {
-    core.info(`github/licensed (${version}) release was not found`);
+    core.info(`licensee/licensed (${version}) release was not found`);
     return null;
   }
 
   const licensedReleaseAsset = await module.exports.findReleaseAssetForPlatform(releaseForVersion, platform);
   if (!licensedReleaseAsset) {
-    core.info(`github/licensed (${version}-${platform}) package was not found`);
+    core.info(`licensee/licensed (${version}-${platform}) package was not found`);
     return null;
   }
 
   await io.mkdirP(installDir);
   const archivePath = await module.exports.downloadLicensedArchive(unauthenticatedGitHub, licensedReleaseAsset);
   await module.exports.extractLicensedArchive(archivePath, installDir);
-  
+
   if (!process.env['PATH'].includes(installDir)) {
     core.addPath(installDir);
   }
@@ -204,7 +204,7 @@ async function install(version) {
   const gemVersions = await module.exports.availableGemVersions(gemExe);
   const gemVersion = utils.findVersion(gemVersions, version);
   if (!gemVersion) {
-    core.info(`github/licensed (${version}) gem was not found`);
+    core.info(`licensee/licensed (${version}) gem was not found`);
     return null;
   }
 
@@ -861,8 +861,8 @@ class OidcClient {
             const res = yield httpclient
                 .getJson(id_token_url)
                 .catch(error => {
-                throw new Error(`Failed to get ID Token. \n 
-        Error Code : ${error.statusCode}\n 
+                throw new Error(`Failed to get ID Token. \n
+        Error Code : ${error.statusCode}\n
         Error Message: ${error.message}`);
             });
             const id_token = (_a = res.result) === null || _a === void 0 ? void 0 : _a.value;
@@ -12210,7 +12210,7 @@ const dist_src_Octokit = Octokit.plugin(requestLog, legacyRestEndpointMethods, p
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/ 	
+/******/
 /******/ 	// The require function
 /******/ 	function __nccwpck_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -12224,7 +12224,7 @@ const dist_src_Octokit = Octokit.plugin(requestLog, legacyRestEndpointMethods, p
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
-/******/ 	
+/******/
 /******/ 		// Execute the module function
 /******/ 		var threw = true;
 /******/ 		try {
@@ -12233,11 +12233,11 @@ const dist_src_Octokit = Octokit.plugin(requestLog, legacyRestEndpointMethods, p
 /******/ 		} finally {
 /******/ 			if(threw) delete __webpack_module_cache__[moduleId];
 /******/ 		}
-/******/ 	
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/ 	
+/******/
 /************************************************************************/
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
@@ -12250,12 +12250,12 @@ const dist_src_Octokit = Octokit.plugin(requestLog, legacyRestEndpointMethods, p
 /******/ 			}
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -12266,11 +12266,11 @@ const dist_src_Octokit = Octokit.plugin(requestLog, legacyRestEndpointMethods, p
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/compat */
-/******/ 	
+/******/
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
-/******/ 	
+/******/
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.

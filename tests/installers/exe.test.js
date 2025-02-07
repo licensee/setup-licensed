@@ -30,10 +30,10 @@ describe('getReleases', () => {
     sinon.restore();
   });
 
-  it('lists releases from github/licensed', () => {
+  it('lists releases from licensee/licensed', () => {
     expect(installer.getReleases(octokit)).resolves.toBeInstanceOf(Array);
     expect(restPaginate.callCount).toEqual(1);
-    expect(restPaginate.getCall(0).args).toEqual([octokit.rest.repos.listReleases, { owner: 'github', repo: 'licensed' }]);
+    expect(restPaginate.getCall(0).args).toEqual([octokit.rest.repos.listReleases, { owner: 'licensee', repo: 'licensed' }]);
   });
 
   it('filters releases without any assets', async () => {
@@ -92,7 +92,7 @@ describe('downloadLicensedArchive', () => {
   let requestEndpoint;
   let endpointMerge;
 
-  beforeEach(() => {    
+  beforeEach(() => {
     requestEndpoint = sinon.stub();
     endpointMerge = sinon.stub().returns('merged');
     octokit = {
@@ -119,17 +119,17 @@ describe('downloadLicensedArchive', () => {
 
   it('downloads a release asset', async () => {
     requestEndpoint.resolves({ status: 200, data: 'archive' });
-    
+
     const downloadedArchivePath = await installer.downloadLicensedArchive(octokit, { id: 1 });
     expect(downloadedArchivePath).toEqual(archivePath);
 
     expect(endpointMerge.callCount).toEqual(1);
     expect(endpointMerge.getCall(0).args).toEqual([
-      {   
+      {
         headers: {
           Accept: "application/octet-stream"
         },
-        owner: 'github',
+        owner: 'licensee',
         repo: 'licensed',
         asset_id: 1
       }
@@ -144,7 +144,7 @@ describe('downloadLicensedArchive', () => {
 
   it('raises an error when downloading a release asset fails', async () => {
     requestEndpoint.resolves({ status: 500 });
-    
+
     const promise = installer.downloadLicensedArchive(octokit, { id: 1 }, 'path/to/licensed');
     await expect(promise).rejects.toThrow('Unable to download licensed');
   });
@@ -153,7 +153,7 @@ describe('downloadLicensedArchive', () => {
 describe('extractLicensedArchive', () => {
   let archivePath;
 
-  beforeEach(() => {    
+  beforeEach(() => {
     archivePath = path.join('testTmpDir', 'licensed.tar.gz');
     sinon.stub(fs.promises, 'access').resolves();
     sinon.stub(fs.promises, 'unlink').resolves();
@@ -248,7 +248,7 @@ describe('install', () => {
 
     await expect(installer.install(version)).resolves.toEqual(null);
     expect(core.info.callCount).toEqual(1);
-    expect(core.info.getCall(0).args).toEqual(['github/licensed (2.3.2) release was not found']);
+    expect(core.info.getCall(0).args).toEqual(['licensee/licensed (2.3.2) release was not found']);
   });
 
   it('returns null if a release asset is not found', async () => {
@@ -256,7 +256,7 @@ describe('install', () => {
 
     await expect(installer.install(version)).resolves.toEqual(null);
     expect(core.info.callCount).toEqual(1);
-    expect(core.info.getCall(0).args).toEqual([`github/licensed (2.3.2-${os.platform()}) package was not found`]);
+    expect(core.info.getCall(0).args).toEqual([`licensee/licensed (2.3.2-${os.platform()}) package was not found`]);
   });
 
   it('runs', async () => {
