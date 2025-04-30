@@ -33,7 +33,7 @@ steps:
   with:
     ruby-version: ruby
 
-- uses: licensee/setup-licensed@v1
+- uses: licensee/setup-licensed@v1.3.2
   with:
     version: '4.x' # required: supports matching based on string equivalence or node-semver range
     install-dir: /path/to/install/at # optional: defaults to /usr/local/bin
